@@ -10,4 +10,5 @@ var allProducts = []Product{
 	{Title: "three"},
 	{Title: "four"},
 	{Title: "five"},
+	{Title: "five"},
 }
