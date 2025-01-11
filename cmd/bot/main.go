@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"os"
+	"telebot/internal/app/commands"
+	"telebot/internal/service/product"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
@@ -27,14 +29,23 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
+	productService := product.NewService()
+
+	commander := commands.NewCommander(bot, productService)
+
 	for update := range updates {
-		if update.Message != nil { // If we got a message
-			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+		if update.Message == nil { // Ignore nil message
+			continue
+		}
 
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "You wrote: "+update.Message.Text)
-			// msg.ReplyToMessageID = update.Message.MessageID
+		switch update.Message.Command() {
+		case "help":
+			commander.Help(update.Message)
+		case "list":
+			commander.List(update.Message)
 
-			bot.Send(msg)
+		default: // If we got ordinary a message
+			commander.Default(update.Message)
 		}
 	}
 }
