@@ -19,7 +19,12 @@ func NewCommander(bot *tgbotapi.BotAPI, productService *product.Service) *Comman
 }
 
 func (c *Commander) HandleUpdate(update tgbotapi.Update) {
-	if update.Message == nil { // Ignore nil message
+
+	if update.CallbackQuery != nil {
+		msg := tgbotapi.NewMessage(
+			update.CallbackQuery.Message.Chat.ID,
+			"Data: "+update.CallbackQuery.Data)
+		c.bot.Send(msg)
 		return
 	}
 
