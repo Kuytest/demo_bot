@@ -35,7 +35,9 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) {
 		c.List(update.Message)
 	case "get":
 		c.Get(update.Message)
-	default: // If we got ordinary a message
+	case "getport":
+		c.GetPort(update.Message)
+	default: // If we got ordinary message
 		c.Default(update.Message)
 	}
 }
