@@ -11,20 +11,6 @@ import (
 )
 
 func main() {
-	// zapConfig := zap.NewDevelopmentConfig()
-	// zapConfig.EncoderConfig.EncodeTime = zapcore.TimeEncoderOfLayout(time.DateTime)
-	// zapConfig.EncoderConfig.TimeKey = "time"
-	// l, err := zapConfig.Build()
-	// Logger := l.Sugar()
-	// defer func() {
-	// 	err := Logger.Sync()
-	// 	if err != nil {
-	// 		log.Println(err.Error())
-	// 	}
-	// }()
-	// if err != nil {
-	// 	log.Fatalf("logger creating error %v", err)
-	// }
 
 	godotenv.Load()
 	token := os.Getenv("TOKEN")

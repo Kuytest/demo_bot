@@ -29,6 +29,8 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) {
 	}
 
 	switch update.Message.Command() {
+	// case "choise":
+	// 	c.Choise(update.Message)
 	case "help":
 		c.Help(update.Message)
 	case "list":
@@ -37,6 +39,8 @@ func (c *Commander) HandleUpdate(update tgbotapi.Update) {
 		c.Get(update.Message)
 	case "getport":
 		c.GetPort(update.Message)
+	case "income":
+		c.GetIncome(update.Message)
 	default: // If we got ordinary message
 		c.Default(update.Message)
 	}
